@@ -10,7 +10,7 @@ function EventListPage() {
   const { currentUser } = useCurrentUser();
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/events")
+    fetch("https://rugby-attend-back.onrender.com/api/events")
       .then((response) => response.json())
       .then((data) => {
         setEvents(data);

@@ -22,7 +22,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/users/current")
+    fetch("https://rugby-attend-back.onrender.com/api/users/current")
       .then((res) => res.json())
       .then((data) => {
         setCurrentUser(data);

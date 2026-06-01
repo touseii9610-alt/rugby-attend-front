@@ -16,7 +16,7 @@ function CreateEventPage() {
   const navigate = useNavigate();
 
   const handleCreateEvent = async () => {
-    await fetch("http://localhost:8080/api/events", {
+    await fetch("https://rugby-attend-back.onrender.com/api/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

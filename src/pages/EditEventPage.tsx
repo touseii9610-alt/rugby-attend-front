@@ -13,7 +13,7 @@ function EditEventPage() {
   const [eventType, setEventType] = useState("REGULAR");
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/events/${id}`)
+    fetch(`https://rugby-attend-back.onrender.com/api/events/${id}`)
       .then((res) => res.json())
       .then((event) => {
         setTitle(event.title);
@@ -26,7 +26,7 @@ function EditEventPage() {
   }, [id]);
 
   const handleUpdateEvent = async () => {
-    await fetch(`http://localhost:8080/api/events/${id}`, {
+    await fetch(`https://rugby-attend-back.onrender.com/api/events/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

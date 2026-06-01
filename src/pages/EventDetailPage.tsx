@@ -17,11 +17,11 @@ function EventDetailPage() {
   const [event, setEvent] = useState<any>();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/events/${id}`)
+    fetch(`https://rugby-attend-back.onrender.com/api/events/${id}`)
       .then((res) => res.json())
       .then((data) => setEvent(data));
 
-    fetch(`http://localhost:8080/api/attendances/${id}`)
+    fetch(`https://rugby-attend-back.onrender.com/api/attendances/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setAttendances(data);
@@ -53,7 +53,7 @@ function EventDetailPage() {
       setShowToast(false);
     }, 2000);
 
-    await fetch("http://localhost:8080/api/attendances", {
+    await fetch("https://rugby-attend-back.onrender.com/api/attendances", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function EventDetailPage() {
       }),
     });
 
-    await fetch(`http://localhost:8080/api/attendances/${id}`)
+    await fetch(`https://rugby-attend-back.onrender.com/api/attendances/${id}`)
       .then((res) => res.json())
       .then((data) => setAttendances(data));
 
@@ -85,7 +85,7 @@ function EventDetailPage() {
       return;
     }
 
-    await fetch(`http://localhost:8080/api/events/${id}`, {
+    await fetch(`https://rugby-attend-back.onrender.com/api/events/${id}`, {
       method: "DELETE",
     });
 
