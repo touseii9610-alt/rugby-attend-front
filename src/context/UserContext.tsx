@@ -34,7 +34,18 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         console.log("LINE profile:", profile);
 
         const res = await fetch(
-          "https://rugby-attend-back.onrender.com/api/users/current",
+          "https://rugby-attend-back.onrender.com/api/users/line-login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              lineUserId: profile.userId,
+              displayName: profile.displayName,
+              pictureUrl: profile.pictureUrl,
+            }),
+          },
         );
 
         const data = await res.json();
