@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { getLineProfile } from "../config/liff";
 
 type CurrentUser = {
   id: number;
@@ -22,14 +23,28 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://rugby-attend-back.onrender.com/api/users/current")
-      .then((res) => res.json())
-      .then((data) => {
+    async function loadUser() {
+      try {
+        const profile = await getLineProfile();
+
+        if (!profile) {
+          return;
+        }
+
+        console.log("LINE profile:", profile);
+
+        const res = await fetch(
+          "https://rugby-attend-back.onrender.com/api/users/current",
+        );
+
+        const data = await res.json();
         setCurrentUser(data);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
+      }
+    }
+
+    loadUser();
   }, []);
 
   return (
