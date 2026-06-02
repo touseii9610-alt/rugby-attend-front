@@ -38,6 +38,13 @@ function EventDetailPage() {
   const absentList = attendances.filter((a) => a.status === "ABSENT");
   const maybeList = attendances.filter((a) => a.status === "MAYBE");
 
+  const [showAllAttend, setShowAllAttend] = useState(false);
+  const [showAllAbsent, setShowAllAbsent] = useState(false);
+  const [showAllMaybe, setShowAllMaybe] = useState(false);
+  const visibleAttendList = showAllAttend ? attendList : attendList.slice(0, 5);
+  const visibleAbsentList = showAllAbsent ? absentList : absentList.slice(0, 5);
+  const visibleAllMaybeList = showAllMaybe ? maybeList : maybeList.slice(0, 5);
+
   const handleStatusChange = async (newStatus: string) => {
     setStatus(newStatus);
 
@@ -83,7 +90,7 @@ function EventDetailPage() {
           <img
             src={a.pictureUrl}
             alt=""
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-8 w-8 rounded-full object-cover"
           />
         ) : (
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-sm font-bold text-white">
@@ -91,7 +98,7 @@ function EventDetailPage() {
           </div>
         )}
 
-        <p className="font-bold">{a.displayName || a.userName}</p>
+        <p className="text-sm font-medium">{a.displayName || a.userName}</p>
       </div>
     ));
   };
@@ -226,17 +233,53 @@ function EventDetailPage() {
           <div className="mt-6 space-y-5">
             <div>
               <h2 className="mb-2 font-bold text-green-700">{t("attend")}</h2>
-              {renderMemberList(attendList)}
+              {renderMemberList(
+                showAllAttend ? attendList : attendList.slice(0, 5),
+              )}
+              {attendList.length > 5 && (
+                <button
+                  onClick={() => setShowAllAttend(!showAllAttend)}
+                  className=" mt-2 text-sm font-bold text-blue-600 "
+                >
+                  {showAllAttend
+                    ? "閉じる"
+                    : `もっと見る（+${attendList.length - 5}人）`}
+                </button>
+              )}
             </div>
 
             <div>
               <h2 className="mb-2 font-bold text-red-700">{t("absent")}</h2>
-              {renderMemberList(absentList)}
+              {renderMemberList(
+                showAllAbsent ? absentList : absentList.slice(0, 5),
+              )}
+              {attendList.length > 5 && (
+                <button
+                  onClick={() => setShowAllAbsent(!showAllAbsent)}
+                  className=" mt-2 text-sm font-bold text-blue-600 "
+                >
+                  {showAllAbsent
+                    ? "閉じる"
+                    : `もっと見る（+${absentList.length - 5}人）`}
+                </button>
+              )}
             </div>
 
             <div>
               <h2 className="mb-2 font-bold text-yellow-700">{t("maybe")}</h2>
-              {renderMemberList(maybeList)}
+              {renderMemberList(
+                showAllMaybe ? maybeList : maybeList.slice(0, 5),
+              )}
+              {attendList.length > 5 && (
+                <button
+                  onClick={() => setShowAllMaybe(!showAllMaybe)}
+                  className=" mt-2 text-sm font-bold text-blue-600 "
+                >
+                  {showAllMaybe
+                    ? "閉じる"
+                    : `もっと見る（+${maybeList.length - 5}人）`}
+                </button>
+              )}
             </div>
           </div>
         </div>

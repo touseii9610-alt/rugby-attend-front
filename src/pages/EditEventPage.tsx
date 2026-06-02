@@ -45,7 +45,7 @@ function EditEventPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="mx-auto w-full max-w-md">
       <div className="mb-6 flex items-center gap-3">
         <button
           onClick={() => navigate(-1)}
@@ -93,7 +93,7 @@ function EditEventPage() {
               isAllDay ? `${e.target.value}T00:00` : e.target.value,
             )
           }
-          className="w-full box-border rounded-xl border p-3"
+          className="box-border w-full rounded-xl border p-3"
         />
 
         <input
@@ -104,20 +104,20 @@ function EditEventPage() {
               isAllDay ? `${e.target.value}T23:59` : e.target.value,
             )
           }
-          className="w-full box-border rounded-xl border p-3"
+          className="box-border w-full rounded-xl border p-3"
         />
 
         <input
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="場所"
-          className="w-full rounded-xl border p-3"
+          className="box-border w-full rounded-xl border p-3"
         />
 
         <select
           value={eventType}
           onChange={(e) => setEventType(e.target.value)}
-          className="w-full rounded-xl border p-3"
+          className="box-border w-full rounded-xl border p-3"
         >
           <option value="REGULAR">REGULAR</option>
           <option value="SPECIAL">SPECIAL</option>

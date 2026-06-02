@@ -66,12 +66,7 @@ function CreateEventPage() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="タイトル"
-          className="
-                w-full
-                rounded-xl
-                border
-                p-3
-                "
+          className="box-border w-full rounded-xl border p-3"
           style={{ boxSizing: "border-box" }}
         />
         <label className="flex items-center gap-2 font-bold">
@@ -91,7 +86,7 @@ function CreateEventPage() {
               isAllDay ? `${e.target.value}T00:00` : e.target.value,
             )
           }
-          className="w-full box-border rounded-xl border p-3"
+          className="box-border w-full rounded-xl border p-3"
         />
 
         <input
@@ -102,26 +97,21 @@ function CreateEventPage() {
               isAllDay ? `${e.target.value}T23:59` : e.target.value,
             )
           }
-          className="w-full box-border rounded-xl border p-3"
+          className="box-border w-full rounded-xl border p-3"
         />
 
         <input
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="場所"
-          className="
-                w-full
-                rounded-xl
-                border
-                p-3
-                "
+          className="box-border w-full rounded-xl border p-3"
           style={{ boxSizing: "border-box" }}
         />
 
         <select
           value={eventType}
           onChange={(e) => setEventType(e.target.value)}
-          className="w-full rounded-xl border p-3"
+          className="box-border w-full rounded-xl border p-3"
         >
           <option value="REGULAR">{t("regular")}</option>
 
