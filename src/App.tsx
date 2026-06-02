@@ -3,6 +3,7 @@ import EventListPage from "./pages/EventListPage";
 import EventDetailPage from "./pages/EventDetailPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import EditEventPage from "./pages/EditEventPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       <Route path="/create-event" element={<CreateEventPage />} />
 
       <Route path="/edit-event/:id" element={<EditEventPage />} />
+
+      <Route path="/my" element={<MyPage />} />
     </Routes>
   );
 }

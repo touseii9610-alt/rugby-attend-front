@@ -3,11 +3,13 @@ import EventCard from "../components/EventCard";
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function EventListPage() {
   const [events, setEvents] = useState<any[]>([]);
   const navigate = useNavigate();
   const { currentUser } = useCurrentUser();
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetch("https://rugby-attend-back.onrender.com/api/events")
@@ -96,7 +98,7 @@ function EventListPage() {
           >
             <span className="text-2xl">🏠</span>
 
-            <span className="text-xs font-bold">活动</span>
+            <span className="text-xs font-bold">{t("event")}</span>
           </button>
 
           {currentUser?.role === "CAPTAIN" && (
@@ -111,7 +113,7 @@ function EventListPage() {
             >
               <span className="text-2xl">➕</span>
 
-              <span className="text-xs font-bold">创建</span>
+              <span className="text-xs font-bold">{t("addEvent")}</span>
             </button>
           )}
 
@@ -126,7 +128,7 @@ function EventListPage() {
           >
             <span className="text-2xl">👤</span>
 
-            <span className="text-xs font-bold">我的</span>
+            <span className="text-xs font-bold">{t("me")}</span>
           </button>
         </div>
       </div>

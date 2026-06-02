@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function CreateEventPage() {
   const [title, setTitle] = useState("");
@@ -14,6 +15,8 @@ function CreateEventPage() {
   const [eventType, setEventType] = useState("REGULAR");
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const handleCreateEvent = async () => {
     await fetch("https://rugby-attend-back.onrender.com/api/events", {
@@ -36,7 +39,7 @@ function CreateEventPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
-      <div className="mx-auto max-w-md">
+      <div className="mb-6 flex items-center gap-3">
         <button
           onClick={() => navigate(-1)}
           className="
@@ -55,42 +58,72 @@ function CreateEventPage() {
         >
           ←
         </button>
-        <h1 className="mb-6 text-3xl font-black">Create Event</h1>
+        <h1 className="text-3xl font-black">Create Event</h1>
 
         <div className="space-y-4 rounded-3xl bg-white p-5 shadow-md">
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="タイトル"
-            className="w-full rounded-xl border p-3"
+            className="
+                w-full
+                rounded-xl
+                border
+                p-3
+                "
+            style={{ boxSizing: "border-box" }}
           />
 
           <input
             type="date"
             value={eventDate}
             onChange={(e) => setEventDate(e.target.value)}
-            className="w-full rounded-xl border p-3"
+            className="
+                w-full
+                rounded-xl
+                border
+                p-3
+                "
+            style={{ boxSizing: "border-box" }}
           />
 
           <input
             type="time"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
-            className="w-full rounded-xl border p-3"
+            className="
+              w-full
+              rounded-xl
+              border
+              p-3
+              "
+            style={{ boxSizing: "border-box" }}
           />
 
           <input
             type="time"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
-            className="w-full rounded-xl border p-3"
+            className="
+                w-full
+                rounded-xl
+                border
+                p-3
+                "
+            style={{ boxSizing: "border-box" }}
           />
 
           <input
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="場所"
-            className="w-full rounded-xl border p-3"
+            className="
+                w-full
+                rounded-xl
+                border
+                p-3
+                "
+            style={{ boxSizing: "border-box" }}
           />
 
           <select
@@ -98,9 +131,9 @@ function CreateEventPage() {
             onChange={(e) => setEventType(e.target.value)}
             className="w-full rounded-xl border p-3"
           >
-            <option value="REGULAR">REGULAR</option>
+            <option value="REGULAR">{t("regular")}</option>
 
-            <option value="SPECIAL">SPECIAL</option>
+            <option value="SPECIAL">{t("SPECIAL")}</option>
           </select>
 
           <button
