@@ -4,15 +4,16 @@ import { useTranslation } from "react-i18next";
 
 function CreateEventPage() {
   const [title, setTitle] = useState("");
-  const [eventDate, setEventDate] = useState("");
-
-  const [startTime, setStartTime] = useState("");
-
-  const [endTime, setEndTime] = useState("");
 
   const [location, setLocation] = useState("");
 
   const [eventType, setEventType] = useState("REGULAR");
+
+  const [isAllDay, setIsAllDay] = useState(false);
+
+  const [startDateTime, setStartDateTime] = useState("");
+
+  const [endDateTime, setEndDateTime] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,9 +27,9 @@ function CreateEventPage() {
       },
       body: JSON.stringify({
         title,
-        eventDate,
-        startTime,
-        endTime,
+        startDateTime,
+        endDateTime,
+        isAllDay,
         location,
         eventType,
       }),
@@ -38,7 +39,7 @@ function CreateEventPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="mx-auto max-w-md">
       <div className="mb-6 flex items-center gap-3">
         <button
           onClick={() => navigate(-1)}
@@ -59,86 +60,83 @@ function CreateEventPage() {
           ←
         </button>
         <h1 className="text-3xl font-black">Create Event</h1>
-
-        <div className="space-y-4 rounded-3xl bg-white p-5 shadow-md">
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="タイトル"
-            className="
+      </div>
+      <div className="space-y-4 rounded-3xl bg-white p-5 shadow-md">
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="タイトル"
+          className="
                 w-full
                 rounded-xl
                 border
                 p-3
                 "
-            style={{ boxSizing: "border-box" }}
-          />
+          style={{ boxSizing: "border-box" }}
+        />
 
+        <input
+          type="checkbox"
+          checked={isAllDay}
+          onChange={(e) => setIsAllDay(e.target.checked)}
+        />
+        <label className="flex items-center gap-2 font-bold">
           <input
-            type="date"
-            value={eventDate}
-            onChange={(e) => setEventDate(e.target.value)}
-            className="
+            type="checkbox"
+            checked={isAllDay}
+            onChange={(e) => setIsAllDay(e.target.checked)}
+          />
+          終日
+        </label>
+
+        <input
+          type={isAllDay ? "date" : "datetime-local"}
+          value={isAllDay ? startDateTime.slice(0, 10) : startDateTime}
+          onChange={(e) =>
+            setStartDateTime(
+              isAllDay ? `${e.target.value}T00:00` : e.target.value,
+            )
+          }
+          className="w-full box-border rounded-xl border p-3"
+        />
+
+        <input
+          type={isAllDay ? "date" : "datetime-local"}
+          value={isAllDay ? endDateTime.slice(0, 10) : endDateTime}
+          onChange={(e) =>
+            setEndDateTime(
+              isAllDay ? `${e.target.value}T23:59` : e.target.value,
+            )
+          }
+          className="w-full box-border rounded-xl border p-3"
+        />
+
+        <input
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="場所"
+          className="
                 w-full
                 rounded-xl
                 border
                 p-3
                 "
-            style={{ boxSizing: "border-box" }}
-          />
+          style={{ boxSizing: "border-box" }}
+        />
 
-          <input
-            type="time"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-            className="
-              w-full
-              rounded-xl
-              border
-              p-3
-              "
-            style={{ boxSizing: "border-box" }}
-          />
+        <select
+          value={eventType}
+          onChange={(e) => setEventType(e.target.value)}
+          className="w-full rounded-xl border p-3"
+        >
+          <option value="REGULAR">{t("regular")}</option>
 
-          <input
-            type="time"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-            className="
-                w-full
-                rounded-xl
-                border
-                p-3
-                "
-            style={{ boxSizing: "border-box" }}
-          />
+          <option value="SPECIAL">{t("special")}</option>
+        </select>
 
-          <input
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="場所"
-            className="
-                w-full
-                rounded-xl
-                border
-                p-3
-                "
-            style={{ boxSizing: "border-box" }}
-          />
-
-          <select
-            value={eventType}
-            onChange={(e) => setEventType(e.target.value)}
-            className="w-full rounded-xl border p-3"
-          >
-            <option value="REGULAR">{t("regular")}</option>
-
-            <option value="SPECIAL">{t("SPECIAL")}</option>
-          </select>
-
-          <button
-            onClick={handleCreateEvent}
-            className="
+        <button
+          onClick={handleCreateEvent}
+          className="
             w-full
             rounded-2xl
             bg-green-700
@@ -146,10 +144,9 @@ function CreateEventPage() {
             font-black
             text-white
         "
-          >
-            作成
-          </button>
-        </div>
+        >
+          作成
+        </button>
       </div>
     </div>
   );

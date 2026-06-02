@@ -53,9 +53,9 @@ function EventListPage() {
             <Link to={`/events/${event.id}`} key={event.id}>
               <EventCard
                 title={event.title}
-                eventDate={event.eventDate}
-                startTime={event.startTime}
-                endTime={event.endTime}
+                startDateTime={event.startDateTime}
+                endDateTime={event.endDateTime}
+                isAllDay={event.isAllDay}
                 location={event.location}
                 attendCount={event.attendCount}
                 absentCount={event.absentCount}

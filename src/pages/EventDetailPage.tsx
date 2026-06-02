@@ -151,10 +151,17 @@ function EventDetailPage() {
           </div>
 
           <div className="mt-4 space-y-1 text-gray-600">
-            <p>{event.eventDate}</p>
-            <p>
-              {event.startTime} - {event.endTime}
-            </p>
+            {event.isAllDay ? (
+              <p>
+                {event.startDateTime.slice(0, 10)} ～{" "}
+                {event.endDateTime.slice(0, 10)}
+              </p>
+            ) : (
+              <p>
+                {event.startDateTime.replace("T", " ")} ～{" "}
+                {event.endDateTime.replace("T", " ")}
+              </p>
+            )}
             <p>{event.location}</p>
           </div>
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "../context/UserContext";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 function MyPage() {
   const { currentUser } = useCurrentUser();
@@ -19,9 +20,30 @@ function MyPage() {
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, [currentUser]);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
+      <div className="mb-6 flex items-center gap-3">
+        <button
+          onClick={() => navigate(-1)}
+          className="
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                rounded-full
+                bg-white
+                text-xl
+                shadow-md
+                transition
+                active:scale-95
+                "
+        >
+          ←
+        </button>
+      </div>
       <div className="mx-auto max-w-md">
         <h1 className="mb-6 text-3xl font-black">{t("schedule")}</h1>
 
@@ -38,7 +60,17 @@ function MyPage() {
           >
             <p className="font-black">{event.title}</p>
 
-            <p className="text-gray-600">{event.eventDate}</p>
+            {event.isAllDay ? (
+              <p className="text-gray-600">
+                {event.startDateTime.slice(0, 10)} ～{" "}
+                {event.endDateTime.slice(0, 10)}
+              </p>
+            ) : (
+              <p className="text-gray-600">
+                {event.startDateTime.replace("T", " ")} ～{" "}
+                {event.endDateTime.replace("T", " ")}
+              </p>
+            )}
 
             <p className="text-gray-600">{event.location}</p>
           </div>

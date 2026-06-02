@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 type Props = {
   title: string;
-  eventDate: string;
-  startTime: string;
-  endTime: string;
+  startDateTime: string;
+  endDateTime: string;
+  isAllDay: boolean;
   location: string;
   attendCount: number;
   absentCount: number;
@@ -12,9 +12,9 @@ type Props = {
 
 function EventCard({
   title,
-  eventDate,
-  startTime,
-  endTime,
+  startDateTime,
+  endDateTime,
+  isAllDay,
   location,
   attendCount,
   absentCount,
@@ -74,10 +74,16 @@ function EventCard({
           text-gray-600
         "
       >
-        <p>📅 {eventDate}</p>
-        <p>
-          🕒 {startTime} - {endTime}
-        </p>
+        {isAllDay ? (
+          <p>
+            📅 {startDateTime.slice(0, 10)} ～ {endDateTime.slice(0, 10)}
+          </p>
+        ) : (
+          <p>
+            📅 {startDateTime.replace("T", " ")} ～{" "}
+            {endDateTime.replace("T", " ")}
+          </p>
+        )}
 
         <p>📍 {location}</p>
         <div className="mt-5 flex gap-2">
