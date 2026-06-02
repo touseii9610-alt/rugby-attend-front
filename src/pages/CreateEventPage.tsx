@@ -74,12 +74,6 @@ function CreateEventPage() {
                 "
           style={{ boxSizing: "border-box" }}
         />
-
-        <input
-          type="checkbox"
-          checked={isAllDay}
-          onChange={(e) => setIsAllDay(e.target.checked)}
-        />
         <label className="flex items-center gap-2 font-bold">
           <input
             type="checkbox"

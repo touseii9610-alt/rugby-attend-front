@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCurrentUser } from "../context/UserContext";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { formatEventDateTime } from "../utils/dateUtils";
 
 function MyPage() {
   const { currentUser } = useCurrentUser();
@@ -47,34 +48,38 @@ function MyPage() {
       <div className="mx-auto max-w-md">
         <h1 className="mb-6 text-3xl font-black">{t("schedule")}</h1>
 
-        {events.map((event) => (
-          <div
-            key={event.id}
-            className="
-              mb-4
-              rounded-2xl
-              bg-white
-              p-4
-              shadow
-            "
-          >
-            <p className="font-black">{event.title}</p>
+        {events.map((event) => {
+          const display =
+            event.startDateTime && event.endDateTime
+              ? formatEventDateTime(
+                  event.startDateTime,
+                  event.endDateTime,
+                  event.isAllDay,
+                )
+              : null;
 
-            {event.isAllDay ? (
-              <p className="text-gray-600">
-                {event.startDateTime.slice(0, 10)} ～{" "}
-                {event.endDateTime.slice(0, 10)}
-              </p>
-            ) : (
-              <p className="text-gray-600">
-                {event.startDateTime.replace("T", " ")} ～{" "}
-                {event.endDateTime.replace("T", " ")}
-              </p>
-            )}
+          return (
+            <div
+              key={event.id}
+              className="mb-4 rounded-2xl bg-white p-4 shadow"
+            >
+              <p className="font-black">{event.title}</p>
 
-            <p className="text-gray-600">{event.location}</p>
-          </div>
-        ))}
+              {display ? (
+                <>
+                  <p className="text-gray-600">📅 {display.date}</p>
+                  <p className="text-gray-600">
+                    {event.isAllDay ? "🌞" : "🕘"} {display.time}
+                  </p>
+                </>
+              ) : (
+                <p className="text-red-500">日時データなし</p>
+              )}
+
+              <p className="text-gray-600">📍 {event.location}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

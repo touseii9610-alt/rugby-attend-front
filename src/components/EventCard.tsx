@@ -1,4 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { formatEventDateTime } from "../utils/dateUtils";
+
 type Props = {
   title: string;
   startDateTime: string;
@@ -21,6 +23,9 @@ function EventCard({
   maybeCount,
 }: Props) {
   const { t } = useTranslation();
+
+  const display = formatEventDateTime(startDateTime, endDateTime, isAllDay);
+
   return (
     <div
       className="
@@ -74,58 +79,53 @@ function EventCard({
           text-gray-600
         "
       >
-        {isAllDay ? (
-          <p>
-            📅 {startDateTime.slice(0, 10)} ～ {endDateTime.slice(0, 10)}
-          </p>
-        ) : (
-          <p>
-            📅 {startDateTime.replace("T", " ")} ～{" "}
-            {endDateTime.replace("T", " ")}
-          </p>
-        )}
+        <p className="text-gray-600">📅 {display.date}</p>
+
+        <p className="text-gray-600">
+          {isAllDay ? "🌞" : "🕘"} {display.time}
+        </p>
 
         <p>📍 {location}</p>
+
         <div className="mt-5 flex gap-2">
           <div
             className="
-                rounded-full
-                bg-green-100
-                px-3
-                py-1
-                text-xs
-                font-bold
-                text-green-700
-                "
+              rounded-full
+              bg-green-100
+              px-3
+              py-1
+              text-xs
+              font-bold
+              text-green-700
+            "
           >
-            {t("attend")}
-            {attendCount}
+            {t("attend")} {attendCount}
           </div>
 
           <div
             className="
-                rounded-full
-                bg-red-100
-                px-3
-                py-1
-                text-xs
-                font-bold
-                text-red-700
-                "
+              rounded-full
+              bg-red-100
+              px-3
+              py-1
+              text-xs
+              font-bold
+              text-red-700
+            "
           >
             {t("absent")} {absentCount}
           </div>
 
           <div
             className="
-                rounded-full
-                bg-yellow-100
-                px-3
-                py-1
-                text-xs
-                font-bold
-                text-yellow-700
-                "
+              rounded-full
+              bg-yellow-100
+              px-3
+              py-1
+              text-xs
+              font-bold
+              text-yellow-700
+            "
           >
             {t("maybe")} {maybeCount}
           </div>
