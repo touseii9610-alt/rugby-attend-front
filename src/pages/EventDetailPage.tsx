@@ -233,9 +233,7 @@ function EventDetailPage() {
           <div className="mt-6 space-y-5">
             <div>
               <h2 className="mb-2 font-bold text-green-700">{t("attend")}</h2>
-              {renderMemberList(
-                showAllAttend ? attendList : attendList.slice(0, 5),
-              )}
+              {renderMemberList(visibleAttendList)}
               {attendList.length > 5 && (
                 <button
                   onClick={() => setShowAllAttend(!showAllAttend)}
@@ -250,10 +248,8 @@ function EventDetailPage() {
 
             <div>
               <h2 className="mb-2 font-bold text-red-700">{t("absent")}</h2>
-              {renderMemberList(
-                showAllAbsent ? absentList : absentList.slice(0, 5),
-              )}
-              {attendList.length > 5 && (
+              {renderMemberList(visibleAbsentList)}
+              {absentList.length > 5 && (
                 <button
                   onClick={() => setShowAllAbsent(!showAllAbsent)}
                   className=" mt-2 text-sm font-bold text-blue-600 "
@@ -267,10 +263,8 @@ function EventDetailPage() {
 
             <div>
               <h2 className="mb-2 font-bold text-yellow-700">{t("maybe")}</h2>
-              {renderMemberList(
-                showAllMaybe ? maybeList : maybeList.slice(0, 5),
-              )}
-              {attendList.length > 5 && (
+              {renderMemberList(visibleAllMaybeList)}
+              {maybeList.length > 5 && (
                 <button
                   onClick={() => setShowAllMaybe(!showAllMaybe)}
                   className=" mt-2 text-sm font-bold text-blue-600 "
