@@ -26,6 +26,32 @@ function EditEventPage() {
   }, [id]);
 
   const handleUpdateEvent = async () => {
+    if (!title || !startDateTime || !location) {
+      alert("タイトル、開始日時、場所を入力してください");
+      return;
+    }
+
+    let requestStartDateTime = startDateTime;
+    let requestEndDateTime = endDateTime;
+
+    if (isAllDay) {
+      const startDate = startDateTime.slice(0, 10);
+      const endDate = endDateTime ? endDateTime.slice(0, 10) : startDate;
+
+      requestStartDateTime = `${startDate}T00:00`;
+      requestEndDateTime = `${endDate}T23:59`;
+    } else {
+      if (!endDateTime) {
+        alert("終了日時を入力してください");
+        return;
+      }
+    }
+
+    if (new Date(requestEndDateTime) < new Date(requestStartDateTime)) {
+      alert("終了日時は開始日時以降にしてください");
+      return;
+    }
+
     await fetch(`https://rugby-attend-back.onrender.com/api/events/${id}`, {
       method: "PUT",
       headers: {
@@ -33,8 +59,8 @@ function EditEventPage() {
       },
       body: JSON.stringify({
         title,
-        startDateTime,
-        endDateTime,
+        startDateTime: requestStartDateTime,
+        endDateTime: requestEndDateTime,
         isAllDay,
         location,
         eventType,
@@ -80,32 +106,56 @@ function EditEventPage() {
           <input
             type="checkbox"
             checked={isAllDay}
-            onChange={(e) => setIsAllDay(e.target.checked)}
+            onChange={(e) => {
+              const checked = e.target.checked;
+              setIsAllDay(checked);
+
+              if (checked) {
+                if (startDateTime) {
+                  setStartDateTime(`${startDateTime.slice(0, 10)}T00:00`);
+                }
+
+                if (endDateTime) {
+                  setEndDateTime(`${endDateTime.slice(0, 10)}T23:59`);
+                }
+              }
+            }}
+            className="h-5 w-5"
           />
           終日
         </label>
 
-        <input
-          type={isAllDay ? "date" : "datetime-local"}
-          value={isAllDay ? startDateTime.slice(0, 10) : startDateTime}
-          onChange={(e) =>
-            setStartDateTime(
-              isAllDay ? `${e.target.value}T00:00` : e.target.value,
-            )
-          }
-          className="box-border w-full rounded-xl border p-3"
-        />
+        <div>
+          <p className="mb-2 font-bold text-gray-700">
+            {isAllDay ? "開始日" : "開始日時"}
+          </p>
 
-        <input
-          type={isAllDay ? "date" : "datetime-local"}
-          value={isAllDay ? endDateTime.slice(0, 10) : endDateTime}
-          onChange={(e) =>
-            setEndDateTime(
-              isAllDay ? `${e.target.value}T23:59` : e.target.value,
-            )
-          }
-          className="box-border w-full rounded-xl border p-3"
-        />
+          <input
+            type={isAllDay ? "date" : "datetime-local"}
+            value={isAllDay ? startDateTime.slice(0, 10) : startDateTime}
+            onChange={(e) => {
+              const value = e.target.value;
+              setStartDateTime(isAllDay ? `${value}T00:00` : value);
+            }}
+            className="box-border w-full rounded-xl border p-3"
+          />
+        </div>
+
+        <div>
+          <p className="mb-2 font-bold text-gray-700">
+            {isAllDay ? "終了日（未入力の場合は開始日と同じ）" : "終了日時"}
+          </p>
+
+          <input
+            type={isAllDay ? "date" : "datetime-local"}
+            value={isAllDay ? endDateTime.slice(0, 10) : endDateTime}
+            onChange={(e) => {
+              const value = e.target.value;
+              setEndDateTime(isAllDay ? `${value}T23:59` : value);
+            }}
+            className="box-border w-full rounded-xl border p-3"
+          />
+        </div>
 
         <input
           value={location}
