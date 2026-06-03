@@ -22,6 +22,8 @@ i18n
           me: "予定を見る",
           event: "イベント",
           addEvent: "イベント追加",
+          noEvent: "現在、参加予定はありません",
+          goingToDo: "参加するイベントを選択すると、ここに表示されます。",
         },
       },
       "zh-CN": {
@@ -38,6 +40,8 @@ i18n
           me: "我的",
           event: "活动一览",
           addEvent: "创建",
+          noEvent: "没有要参加的活动",
+          goingToDo: "选择参加地的活动会出现在这里~",
         },
       },
       en: {
@@ -54,6 +58,8 @@ i18n
           me: "ME",
           event: "Events",
           addEvent: "Event Create",
+          noEvent: "No upcoming events yet.",
+          goingToDo: "Events you join will appear here.",
         },
       },
     },

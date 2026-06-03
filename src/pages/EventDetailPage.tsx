@@ -155,8 +155,16 @@ function EventDetailPage() {
           <div className="rounded-2xl bg-white p-5 shadow-md">
             <div className="flex items-center justify-between">
               <div>
-                <div className="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">
-                  {event.eventType}
+                <div
+                  className={`inline-block rounded-full px-3 py-1 text-xs font-bold
+                              ${
+                                event.eventType === "SPECIAL"
+                                  ? "bg-orange-100 text-orange-700"
+                                  : "bg-green-100 text-green-700"
+                              }
+                      `}
+                >
+                  {event.eventType === "SPECIAL" ? "SPECIAL" : "REGULAR"}
                 </div>
 
                 <h1 className="mt-3 text-3xl font-black text-gray-900">

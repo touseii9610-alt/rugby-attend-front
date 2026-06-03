@@ -58,6 +58,16 @@ function MyPage() {
         <div className="mx-auto max-w-md">
           <h1 className="mb-6 text-3xl font-black">{t("schedule")}</h1>
 
+          {!loading && events.length === 0 && (
+            <div className="rounded-2xl bg-white p-6 text-center shadow">
+              <div className="text-4xl">🏉</div>
+
+              <p className="mt-3 font-bold text-gray-700">{t("noEvent")}</p>
+
+              <p className="mt-2 text-sm text-gray-500">{t("goingToDo")}</p>
+            </div>
+          )}
+
           {events.map((event) => {
             const display =
               event.startDateTime && event.endDateTime
