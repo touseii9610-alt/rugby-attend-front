@@ -20,8 +20,8 @@ function CreateEventPage() {
   const { t } = useTranslation();
 
   const handleCreateEvent = async () => {
-    if (!title || !startDateTime || !location) {
-      alert("タイトル、開始日時、場所を入力してください");
+    if (!title || !startDateTime) {
+      alert("タイトル、開始日時を入力してください");
       return;
     }
 
