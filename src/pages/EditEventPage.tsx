@@ -94,12 +94,12 @@ function EditEventPage() {
         <h1 className="mb-6 text-3xl font-black">Edit Event</h1>
       </div>
 
-      <div className="space-y-4 rounded-3xl bg-white p-5 shadow-md">
+      <div className="w-full overflow-hidden space-y-4 rounded-3xl bg-white p-5 shadow-md">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="タイトル"
-          className="w-full rounded-xl border p-3"
+          className="block w-full max-w-full box-border rounded-xl border p-3"
         />
 
         <label className="flex items-center gap-2 font-bold">
@@ -137,7 +137,7 @@ function EditEventPage() {
               const value = e.target.value;
               setStartDateTime(isAllDay ? `${value}T00:00` : value);
             }}
-            className="box-border w-full rounded-xl border p-3"
+            className="block w-full max-w-full box-border rounded-xl border p-3"
           />
         </div>
 
@@ -153,7 +153,7 @@ function EditEventPage() {
               const value = e.target.value;
               setEndDateTime(isAllDay ? `${value}T23:59` : value);
             }}
-            className="box-border w-full rounded-xl border p-3"
+            className="block w-full max-w-full box-border rounded-xl border p-3"
           />
         </div>
 
@@ -161,13 +161,13 @@ function EditEventPage() {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="場所"
-          className="box-border w-full rounded-xl border p-3"
+          className="block w-full max-w-full box-border rounded-xl border p-3"
         />
 
         <select
           value={eventType}
           onChange={(e) => setEventType(e.target.value)}
-          className="box-border w-full rounded-xl border p-3"
+          className="block w-full max-w-full box-border rounded-xl border p-3"
         >
           <option value="REGULAR">REGULAR</option>
           <option value="SPECIAL">SPECIAL</option>
