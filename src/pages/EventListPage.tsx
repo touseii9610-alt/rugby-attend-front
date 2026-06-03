@@ -51,7 +51,7 @@ function EventListPage() {
                     items-center
                     justify-center
                     rounded-full
-                    bg-green-700
+                    bg-purple-700
                     text-xl
                     font-bold
                     text-white
@@ -66,6 +66,7 @@ function EventListPage() {
             {events.map((event) => (
               <Link to={`/events/${event.id}`} key={event.id}>
                 <EventCard
+                  eventType={event.eventType}
                   title={event.title}
                   startDateTime={event.startDateTime}
                   endDateTime={event.endDateTime}

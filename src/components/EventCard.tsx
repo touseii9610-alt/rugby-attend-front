@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { formatEventDateTime } from "../utils/dateUtils";
 
 type Props = {
+  eventType: string;
   title: string;
   startDateTime: string;
   endDateTime: string;
@@ -13,6 +14,7 @@ type Props = {
 };
 
 function EventCard({
+  eventType,
   title,
   startDateTime,
   endDateTime,
@@ -25,6 +27,8 @@ function EventCard({
   const { t } = useTranslation();
 
   const display = formatEventDateTime(startDateTime, endDateTime, isAllDay);
+
+  const isSpecial = eventType === "SPECIAL";
 
   return (
     <div
@@ -42,18 +46,21 @@ function EventCard({
       <div className="flex items-start justify-between">
         <div>
           <div
-            className="
-              inline-block
-              rounded-full
-              bg-green-100
-              px-3
-              py-1
-              text-xs
-              font-bold
-              text-green-700
-            "
+            className={`
+                inline-block
+                rounded-full
+                px-3
+                py-1
+                text-xs
+                font-bold
+                ${
+                  isSpecial
+                    ? "bg-orange-100 text-orange-700"
+                    : "bg-green-100 text-green-700"
+                }
+              `}
           >
-            REGULAR
+            {isSpecial ? "SPECIAL" : "REGULAR"}
           </div>
 
           <h2
